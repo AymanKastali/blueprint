@@ -4,7 +4,6 @@ Implements the DatabasePort interface using SQLAlchemy async engine
 with asyncpg driver. Manages connection pooling and session lifecycle.
 """
 
-import logging
 from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
 
@@ -17,8 +16,7 @@ from sqlalchemy.ext.asyncio import (
 
 from {{ project_name }}.adapters.config.settings import settings
 from {{ project_name }}.application.ports.outbound.database import DatabasePort
-
-logger = logging.getLogger(__name__)
+from {{ project_name }}.adapters.outbound.logging.logger import logger
 
 
 class PostgresDatabase(DatabasePort):

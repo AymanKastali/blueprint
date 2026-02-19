@@ -1,11 +1,12 @@
-"""Logging configuration using Rich."""
+"""Logging adapter — Rich (dev) / JSON (prod) for {{ project_name }}."""
 
 import json
 import logging
-import os
 from typing import Any
 
 from rich.logging import RichHandler
+
+from {{ project_name }}.adapters.config.settings import settings
 
 _STANDARD_ATTRS = frozenset(
     logging.LogRecord("", 0, "", 0, "", (), None).__dict__
@@ -18,7 +19,7 @@ def _get_extras(record: logging.LogRecord) -> dict[str, Any]:
 
 
 class _JSONFormatter(logging.Formatter):
-    """JSON structured log formatter for non-development environments."""
+    """JSON structured log formatter for production."""
 
     def format(self, record: logging.LogRecord) -> str:
         log_entry: dict[str, Any] = {
@@ -47,16 +48,13 @@ class _RichExtraFormatter(logging.Formatter):
         return message
 
 
-def _setup_logger() -> logging.Logger:
-    """Configure the blueprint logger based on BLUEPRINT_ENV."""
-    log = logging.getLogger("blueprint")
-    if log.handlers:
-        return log
+def setup_logging() -> None:
+    """Configure root logger: RichHandler when debug, JSON otherwise."""
+    root = logging.getLogger()
+    root.setLevel(logging.DEBUG if settings.debug else logging.INFO)
+    root.handlers.clear()
 
-    log.setLevel(logging.DEBUG)
-    env = os.environ.get("BLUEPRINT_ENV", "development")
-
-    if env == "development":
+    if settings.debug:
         handler: logging.Handler = RichHandler(
             rich_tracebacks=True, show_time=True, show_path=False,
         )
@@ -65,8 +63,7 @@ def _setup_logger() -> logging.Logger:
         handler = logging.StreamHandler()
         handler.setFormatter(_JSONFormatter())
 
-    log.addHandler(handler)
-    return log
+    root.addHandler(handler)
 
 
-logger = _setup_logger()
+logger = logging.getLogger("{{ project_name }}")
