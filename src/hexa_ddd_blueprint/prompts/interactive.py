@@ -5,7 +5,7 @@ from typing import Any
 from rich.console import Console
 from rich.prompt import Confirm, Prompt
 
-from blueprint.defaults import (
+from hexa_ddd_blueprint.defaults import (
     DB_CHOICES,
     DEFAULT_AUTHOR,
     DEFAULT_DB,
@@ -22,7 +22,7 @@ def prompt_for_config(config: dict[str, Any]) -> dict[str, Any]:
 
     Only prompts for values not already provided via CLI flags.
     """
-    console.print("\n[bold blue]Blueprint[/bold blue] — Project Setup\n")
+    console.print("\n[bold blue]hexa-ddd-blueprint[/bold blue] — Project Setup\n")
 
     if not config.get("name"):
         config["name"] = Prompt.ask(

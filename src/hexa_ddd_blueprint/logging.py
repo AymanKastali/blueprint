@@ -48,8 +48,8 @@ class _RichExtraFormatter(logging.Formatter):
 
 
 def _setup_logger() -> logging.Logger:
-    """Configure the blueprint logger based on BLUEPRINT_ENV."""
-    log = logging.getLogger("blueprint")
+    """Configure the hexa-ddd-blueprint logger based on BLUEPRINT_ENV."""
+    log = logging.getLogger("hexa_ddd_blueprint")
     if log.handlers:
         return log
 

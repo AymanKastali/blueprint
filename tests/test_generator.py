@@ -1,10 +1,8 @@
 """Tests for the project generator."""
 
-from pathlib import Path
-
 import pytest
 
-from blueprint.generators.project import generate_project
+from hexa_ddd_blueprint.generators.project import generate_project
 
 BASE_CONFIG = {
     "name": "testgen",
@@ -211,7 +209,10 @@ def test_settings_includes_db_config(tmp_path, monkeypatch):
     monkeypatch.chdir(tmp_path)
     config = {**BASE_CONFIG, "name": "sqlsettings", "db": "postgres"}
     generate_project(config)
-    settings = (tmp_path / "sqlsettings" / "src" / "sqlsettings" / "adapters" / "config" / "settings.py").read_text()
+    settings_path = (
+        tmp_path / "sqlsettings" / "src" / "sqlsettings" / "adapters" / "config" / "settings.py"
+    )
+    settings = settings_path.read_text()
     assert "database_url" in settings
 
 
@@ -277,7 +278,8 @@ def test_no_repository_port(tmp_path, monkeypatch):
     generate_project(config)
     src = tmp_path / "norepo" / "src" / "norepo"
     assert not (src / "application" / "ports" / "outbound" / "repository.py").exists()
-    repos = (src / "adapters" / "outbound" / "persistence" / "postgres" / "repositories.py").read_text()
+    repos_path = src / "adapters" / "outbound" / "persistence" / "postgres" / "repositories.py"
+    repos = repos_path.read_text()
     assert "RepositoryPort" not in repos
 
 
@@ -292,7 +294,10 @@ def test_settings_includes_pool_config(tmp_path, monkeypatch):
     monkeypatch.chdir(tmp_path)
     config = {**BASE_CONFIG, "name": "poolproj", "db": "postgres"}
     generate_project(config)
-    content = (tmp_path / "poolproj" / "src" / "poolproj" / "adapters" / "config" / "settings.py").read_text()
+    settings_path = (
+        tmp_path / "poolproj" / "src" / "poolproj" / "adapters" / "config" / "settings.py"
+    )
+    content = settings_path.read_text()
     assert "db_pool_size" in content
     assert "db_pool_timeout" in content
     assert "db_command_timeout" in content

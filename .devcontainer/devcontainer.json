@@ -1,6 +1,8 @@
 {
-  "name": "blueprint",
+  "name": "hexa-ddd-blueprint",
   "image": "mcr.microsoft.com/devcontainers/python:3.14",
+  "remoteUser": "vscode",
+  "updateRemoteUserUID": true,
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {
       "moby": false

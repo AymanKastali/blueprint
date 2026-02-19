@@ -1,6 +1,6 @@
 """Tests for the interactive prompts module."""
 
-from blueprint.prompts.interactive import prompt_for_config
+from hexa_ddd_blueprint.prompts.interactive import prompt_for_config
 
 
 def test_prompt_skips_provided_values(monkeypatch):

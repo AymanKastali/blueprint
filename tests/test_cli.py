@@ -1,9 +1,9 @@
-"""Tests for the blueprint CLI."""
+"""Tests for the hexa-ddd-blueprint CLI."""
 
 from typer.testing import CliRunner
 
-from blueprint import __version__
-from blueprint.cli.main import app
+from hexa_ddd_blueprint import __version__
+from hexa_ddd_blueprint.cli.main import app
 
 runner = CliRunner()
 

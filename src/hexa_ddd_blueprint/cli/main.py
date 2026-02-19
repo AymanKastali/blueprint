@@ -1,4 +1,4 @@
-"""Typer CLI entry point for blueprint."""
+"""Typer CLI entry point for hexa-ddd-blueprint."""
 
 import keyword
 import re
@@ -7,20 +7,20 @@ from typing import Annotated
 
 import typer
 
-from blueprint import __version__
-from blueprint.defaults import (
+from hexa_ddd_blueprint import __version__
+from hexa_ddd_blueprint.defaults import (
     DEFAULT_AUTHOR,
     DEFAULT_DB,
     DEFAULT_DESCRIPTION,
     DEFAULT_PROJECT_NAME,
     DEFAULT_PYTHON_VERSION,
 )
-from blueprint.generators.project import generate_project
-from blueprint.logging import logger
-from blueprint.prompts.interactive import prompt_for_config
+from hexa_ddd_blueprint.generators.project import generate_project
+from hexa_ddd_blueprint.logging import logger
+from hexa_ddd_blueprint.prompts.interactive import prompt_for_config
 
 app = typer.Typer(
-    name="blueprint",
+    name="hexa-ddd-blueprint",
     help="Scaffold opinionated Python projects following DDD + Hexagonal Architecture.",
     no_args_is_help=True,
 )
@@ -33,7 +33,7 @@ class DbChoice(StrEnum):
 
 def version_callback(value: bool) -> None:
     if value:
-        typer.echo(f"blueprint {__version__}")
+        typer.echo(f"hexa-ddd-blueprint {__version__}")
         raise typer.Exit()
 
 
@@ -50,7 +50,7 @@ def main(
         ),
     ] = None,
 ) -> None:
-    """Blueprint — scaffold DDD + Hexagonal Architecture Python projects."""
+    """hexa-ddd-blueprint — scaffold DDD + Hexagonal Architecture Python projects."""
 
 
 @app.command()

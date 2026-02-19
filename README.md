@@ -1,11 +1,14 @@
-# Blueprint
+# hexa-ddd-blueprint
+
+[![CI](https://github.com/AymanKastali/hexa-ddd-blueprint/actions/workflows/ci.yml/badge.svg)](https://github.com/AymanKastali/hexa-ddd-blueprint/actions/workflows/ci.yml)
+[![PyPI](https://img.shields.io/pypi/v/hexa-ddd-blueprint)](https://pypi.org/project/hexa-ddd-blueprint/)
 
 CLI tool that scaffolds opinionated Python projects following **DDD + Hexagonal (Ports & Adapters) Architecture**.
 
 ## Installation
 
 ```bash
-uv tool install blueprint
+uv tool install hexa-ddd-blueprint
 ```
 
 ## Usage
@@ -13,7 +16,7 @@ uv tool install blueprint
 ### Interactive mode (default)
 
 ```bash
-blueprint new
+hexa-ddd-blueprint new
 ```
 
 Launches prompts for project name, description, author, DB choice, and Python version.
@@ -21,7 +24,7 @@ Launches prompts for project name, description, author, DB choice, and Python ve
 ### Flag-driven mode
 
 ```bash
-blueprint new myproject \
+hexa-ddd-blueprint new myproject \
   --description "My awesome service" \
   --author "John Doe" \
   --db postgres \

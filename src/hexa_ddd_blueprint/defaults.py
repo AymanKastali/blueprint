@@ -1,4 +1,4 @@
-"""Centralized default values for blueprint CLI configuration."""
+"""Centralized default values for hexa-ddd-blueprint CLI configuration."""
 
 DEFAULT_PROJECT_NAME: str = "myproject"
 DEFAULT_DESCRIPTION: str = "A Python project using DDD + Hexagonal Architecture"

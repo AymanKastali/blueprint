@@ -5,10 +5,10 @@ from typing import Any
 
 from jinja2 import Environment, PackageLoader, select_autoescape
 
-from blueprint.logging import logger
+from hexa_ddd_blueprint.logging import logger
 
 TEMPLATE_ENV = Environment(
-    loader=PackageLoader("blueprint", "templates"),
+    loader=PackageLoader("hexa_ddd_blueprint", "templates"),
     autoescape=select_autoescape(),
     keep_trailing_newline=True,
 )
