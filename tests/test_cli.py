@@ -1,11 +1,19 @@
 """Tests for the hexa-ddd-blueprint CLI."""
 
+import re
+
 from typer.testing import CliRunner
 
 from hexa_ddd_blueprint import __version__
 from hexa_ddd_blueprint.cli.main import app
 
 runner = CliRunner()
+
+_ANSI_RE = re.compile(r"\x1b\[[0-9;]*m")
+
+
+def _strip_ansi(text: str) -> str:
+    return _ANSI_RE.sub("", text)
 
 
 def test_version():
@@ -22,17 +30,17 @@ def test_help():
 
 def test_new_help(monkeypatch):
     monkeypatch.setenv("COLUMNS", "200")
-    monkeypatch.setenv("NO_COLOR", "1")
     result = runner.invoke(app, ["new", "--help"])
     assert result.exit_code == 0
-    assert "--description" in result.output
-    assert "--author" in result.output
-    assert "--db" in result.output
-    assert "--python" in result.output
-    assert "--no-docker" in result.output
-    assert "--no-ci" in result.output
-    assert "--no-devcontainer" in result.output
-    assert "--no-interactive" in result.output
+    output = _strip_ansi(result.output)
+    assert "--description" in output
+    assert "--author" in output
+    assert "--db" in output
+    assert "--python" in output
+    assert "--no-docker" in output
+    assert "--no-ci" in output
+    assert "--no-devcontainer" in output
+    assert "--no-interactive" in output
 
 
 def test_new_with_all_flags(tmp_path, monkeypatch):
