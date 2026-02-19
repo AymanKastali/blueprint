@@ -45,7 +45,7 @@ def test_core_structure(project_dir):
     assert (src / "application" / "__init__.py").exists()
     assert (src / "application" / "ports" / "inbound" / "__init__.py").exists()
     assert (src / "application" / "ports" / "outbound" / "__init__.py").exists()
-    assert (src / "application" / "services" / "__init__.py").exists()
+    assert (src / "application" / "use_cases" / "__init__.py").exists()
     assert (src / "application" / "dto" / "__init__.py").exists()
 
     # Adapters layer
@@ -54,8 +54,10 @@ def test_core_structure(project_dir):
     assert (src / "adapters" / "inbound" / "api" / "rest" / "routes" / "__init__.py").exists()
     assert (src / "adapters" / "outbound" / "__init__.py").exists()
 
-    # Package entry point
+    # Package entry point and logging (hexagonal)
     assert (src / "__main__.py").exists()
+    assert (src / "application" / "ports" / "outbound" / "logger.py").exists()
+    assert (src / "adapters" / "outbound" / "logging" / "logger.py").exists()
 
     # Config (inside adapters) & shared kernel (inside domain)
     assert (src / "adapters" / "config" / "settings.py").exists()
@@ -318,3 +320,31 @@ def test_app_lifespan_no_db(project_dir):
     ).read_text()
     assert "database.connect()" not in app_content
     assert "database.disconnect()" not in app_content
+
+
+def test_logging_adapter_uses_rich(project_dir):
+    """Verify logging adapter uses Rich and settings-based configuration."""
+    content = (
+        project_dir / "src" / "testgen"
+        / "adapters" / "outbound" / "logging" / "logger.py"
+    ).read_text()
+    assert "RichHandler" in content
+    assert "settings.debug" in content
+    assert "setup_logging" in content
+
+
+def test_logger_port_exists(project_dir):
+    """Verify LoggerPort protocol is generated in ports layer."""
+    content = (
+        project_dir / "src" / "testgen"
+        / "application" / "ports" / "outbound" / "logger.py"
+    ).read_text()
+    assert "LoggerPort" in content
+    assert "Protocol" in content
+
+
+def test_pyproject_has_rich_not_loggerizer(project_dir):
+    """Verify generated pyproject.toml includes rich but not loggerizer."""
+    pyproject = (project_dir / "pyproject.toml").read_text()
+    assert "rich" in pyproject
+    assert "loggerizer" not in pyproject

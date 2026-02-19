@@ -24,7 +24,7 @@ package "Domain Layer" <<domain>> {
 package "Application Layer" <<application>> {
   [Inbound Ports\n(Use Case Interfaces)] as inbound_ports
   [Outbound Ports\n(Database & Repository\nInterfaces)] as outbound_ports
-  [Application Services\n(Use Cases)] as app_services
+  [Use Cases] as use_cases
   [DTOs] as dtos
 }
 
@@ -47,17 +47,17 @@ package "Adapters Layer" <<adapter>> {
 ' Dependency flow — inward only
 api --> inbound_ports
 api --> dtos
-app_services --> inbound_ports : implements
-app_services --> outbound_ports : uses
-app_services --> models
-app_services --> domain_services
-app_services --> domain_events
+use_cases --> inbound_ports : implements
+use_cases --> outbound_ports : uses
+use_cases --> models
+use_cases --> domain_services
+use_cases --> domain_events
 persistence --> outbound_ports : implements
 persistence --> models
 models --> base_entity
 models --> exceptions
 domain_services --> models
-config --> app_services : configures
+config --> use_cases : configures
 
 note bottom of models
   Pure Python — no framework

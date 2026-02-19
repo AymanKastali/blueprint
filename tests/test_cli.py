@@ -74,6 +74,13 @@ def test_new_invalid_name(tmp_path, monkeypatch):
     assert result.exit_code != 0
 
 
+def test_new_keyword_name(tmp_path, monkeypatch):
+    """Verify Python keyword as project name exits non-zero."""
+    monkeypatch.chdir(tmp_path)
+    result = runner.invoke(app, ["new", "class", "-y"])
+    assert result.exit_code != 0
+
+
 def test_new_directory_exists(tmp_path, monkeypatch):
     """Verify existing directory exits non-zero."""
     monkeypatch.chdir(tmp_path)

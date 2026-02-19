@@ -117,7 +117,7 @@ def _generate_source_tree(src: Path, context: dict[str, Any]) -> None:
             src / "application" / "ports" / "outbound" / "database.py",
             _render("base/database_port.py.j2", context),
         )
-    _write_init(src / "application" / "services")
+    _write_init(src / "application" / "use_cases")
     _write_init(src / "application" / "dto")
 
     # Adapters layer — inbound
@@ -137,6 +137,19 @@ def _generate_source_tree(src: Path, context: dict[str, Any]) -> None:
 
     # Adapters layer — outbound
     _write_init(src / "adapters" / "outbound")
+
+    # Logging adapter
+    _write_init(src / "adapters" / "outbound" / "logging")
+    _write_file(
+        src / "adapters" / "outbound" / "logging" / "logger.py",
+        _render("base/logging_adapter.py.j2", context),
+    )
+
+    # Logger port
+    _write_file(
+        src / "application" / "ports" / "outbound" / "logger.py",
+        _render("base/logger_port.py.j2", context),
+    )
 
     # DB adapter (conditional)
     if context["db"] != "none":

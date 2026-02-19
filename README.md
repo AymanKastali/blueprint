@@ -25,7 +25,7 @@ blueprint new myproject \
   --description "My awesome service" \
   --author "John Doe" \
   --db postgres \
-  --python 3.12 \
+  --python 3.14 \
   --no-docker \
   --no-ci
 ```
@@ -38,7 +38,7 @@ blueprint new myproject \
 | `--description` / `-d` | (prompted) | Project description |
 | `--author` / `-a` | (prompted) | Author name |
 | `--db` | (prompted) | Database: `postgres`, `none` |
-| `--python` | `3.12` | Python version |
+| `--python` | `3.14` | Python version |
 | `--no-docker` | false | Skip Docker/Compose |
 | `--no-ci` | false | Skip GitHub Actions CI |
 | `--no-devcontainer` | false | Skip devcontainer |
@@ -58,8 +58,9 @@ myproject/
 │       │   └── api/
 │       │       └── rest/     # FastAPI REST adapter
 │       └── outbound/
-│           └── persistence/
-│               └── postgres/ # DB-specific adapter
+│           ├── persistence/
+│           │   └── postgres/ # DB-specific adapter
+│           └── logging/          # Logging adapter
 ├── tests/
 ├── docs/architecture/    # PlantUML diagrams
 ├── docker/

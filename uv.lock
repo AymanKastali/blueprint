@@ -17,7 +17,6 @@ version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "jinja2" },
-    { name = "loggerizer" },
     { name = "rich" },
     { name = "typer" },
 ]
@@ -33,7 +32,6 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "jinja2", specifier = ">=3.1.0" },
-    { name = "loggerizer", specifier = ">=0.1.0" },
     { name = "rich", specifier = ">=13.0.0" },
     { name = "typer", specifier = ">=0.9.0" },
 ]
@@ -138,15 +136,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/df/bf/f7da0350254c0ed7c72f3e33cef02e048281fec7ecec5f032d4aac52226b/jinja2-3.1.6.tar.gz", hash = "sha256:0137fb05990d35f1275a587e9aee6d56da821fc83491a0fb838183be43f66d6d", size = 245115, upload-time = "2025-03-05T20:05:02.478Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/62/a1/3d680cbfd5f4b8f15abc1d571870c5fc3e594bb582bc3b64ea099db13e56/jinja2-3.1.6-py3-none-any.whl", hash = "sha256:85ece4451f492d0c13c5dd7c13a64681a86afae63a5f347908daf103ce6d2f67", size = 134899, upload-time = "2025-03-05T20:05:00.369Z" },
-]
-
-[[package]]
-name = "loggerizer"
-version = "1.1.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/f2/5c/6508a77915fda1d904fdaeb9e9c0104a708ea2f407b1ee612446ef10c322/loggerizer-1.1.0.tar.gz", hash = "sha256:3ed0009673231cd8f697bde7887f00f917e3d89706e1e03ad746dd9d1f1889b3", size = 14003, upload-time = "2026-02-18T10:18:19.318Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/ac/65/f73d89299862395ba7988e42e51abe0c334b5251fc46f589e45e6f35b167/loggerizer-1.1.0-py3-none-any.whl", hash = "sha256:51e959ee2b3b1bbb15fa9b748bf8445c97c95a4afdae8c69960000f9551d09aa", size = 11237, upload-time = "2026-02-18T10:18:18.308Z" },
 ]
 
 [[package]]
