@@ -40,12 +40,20 @@ def generate_project(config: dict[str, Any]) -> None:
             name, description, author, db, python, docker, ci, devcontainer
     """
     name = config["name"]
-    root = Path.cwd() / name
 
-    if root.exists():
-        raise FileExistsError(
-            f"Directory '{name}' already exists. Remove it or choose a different name."
-        )
+    if config.get("_use_cwd"):
+        root = Path.cwd()
+        if any(root.iterdir()):
+            raise FileExistsError(
+                f"Current directory '{root}' is not empty. "
+                "Use '.' only in an empty directory."
+            )
+    else:
+        root = Path.cwd() / name
+        if root.exists():
+            raise FileExistsError(
+                f"Directory '{name}' already exists. Remove it or choose a different name."
+            )
 
     src = root / "src" / name
 
@@ -84,6 +92,7 @@ def _generate_source_tree(src: Path, context: dict[str, Any]) -> None:
     # Domain layer
     _write_init(src / "domain")
     _write_init(src / "domain" / "models")
+    _write_init(src / "domain" / "ports")
     _write_init(src / "domain" / "services")
     _write_init(src / "domain" / "events")
     _write_file(
@@ -227,6 +236,7 @@ def _generate_root_files(root: Path, context: dict[str, Any]) -> None:
         root / ".pre-commit-config.yaml",
         _render("base/pre-commit-config.yaml.j2", context),
     )
+    _write_file(root / "Makefile", _render("base/Makefile.j2", context))
     _write_file(root / ".env", _render("base/env.j2", context))
     _write_file(root / ".env.dev", _render("base/env.dev.j2", context))
 

@@ -3,6 +3,7 @@
 import keyword
 import re
 from enum import StrEnum
+from pathlib import Path
 from typing import Annotated
 
 import typer
@@ -59,7 +60,9 @@ def new(
     description: Annotated[
         str | None, typer.Option("--description", "-d", help="Project description")
     ] = None,
-    author: Annotated[str | None, typer.Option("--author", "-a", help="Author name")] = None,
+    author: Annotated[
+        str | None, typer.Option("--author", "-a", help="Author name")
+    ] = None,
     db: Annotated[
         DbChoice | None, typer.Option("--db", help="Database: postgres, none")
     ] = None,
@@ -67,17 +70,21 @@ def new(
         str, typer.Option("--python", help="Python version")
     ] = DEFAULT_PYTHON_VERSION,
     docker: Annotated[
-        bool | None, typer.Option("--docker/--no-docker", help="Include Docker/Compose generation")
+        bool | None,
+        typer.Option("--docker/--no-docker", help="Include Docker/Compose generation"),
     ] = None,
     ci: Annotated[
         bool | None, typer.Option("--ci/--no-ci", help="Include GitHub Actions CI")
     ] = None,
     devcontainer: Annotated[
         bool | None,
-        typer.Option("--devcontainer/--no-devcontainer", help="Include devcontainer setup"),
+        typer.Option(
+            "--devcontainer/--no-devcontainer", help="Include devcontainer setup"
+        ),
     ] = None,
     no_interactive: Annotated[
-        bool, typer.Option("--no-interactive", "-y", help="Use defaults, skip all prompts")
+        bool,
+        typer.Option("--no-interactive", "-y", help="Use defaults, skip all prompts"),
     ] = False,
 ) -> None:
     """Create a new DDD + Hexagonal Architecture Python project."""
@@ -91,6 +98,14 @@ def new(
         "ci": ci,
         "devcontainer": devcontainer,
     }
+
+    # Handle "." — scaffold into the current directory
+    if config["name"] == ".":
+        cwd = Path.cwd()
+        config["name"] = re.sub(r"[^a-zA-Z0-9_]", "_", cwd.name)
+        config["_use_cwd"] = True
+    else:
+        config["_use_cwd"] = False
 
     if no_interactive:
         # Fill in defaults for any missing values

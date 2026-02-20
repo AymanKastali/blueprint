@@ -7,9 +7,9 @@ from typing import Any
 
 from rich.logging import RichHandler
 
-_STANDARD_ATTRS = frozenset(
-    logging.LogRecord("", 0, "", 0, "", (), None).__dict__
-) | {"message"}
+_STANDARD_ATTRS = frozenset(logging.LogRecord("", 0, "", 0, "", (), None).__dict__) | {
+    "message"
+}
 
 
 def _get_extras(record: logging.LogRecord) -> dict[str, Any]:
@@ -58,7 +58,9 @@ def _setup_logger() -> logging.Logger:
 
     if env == "development":
         handler: logging.Handler = RichHandler(
-            rich_tracebacks=True, show_time=True, show_path=False,
+            rich_tracebacks=True,
+            show_time=True,
+            show_path=False,
         )
         handler.setFormatter(_RichExtraFormatter())
     else:

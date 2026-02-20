@@ -13,13 +13,14 @@
     "ghcr.io/devcontainers/features/docker-in-docker:2": {
       "moby": false
     },
+    "ghcr.io/devcontainers-extra/features/uv:1": {},
     "ghcr.io/devcontainers/features/java:1": {
       "version": "21",
       "installGradle": false,
       "installMaven": false
     }
   },
-  "postCreateCommand": "curl -LsSf https://astral.sh/uv/install.sh | sh && uv sync --all-groups",
+  "postCreateCommand": "make setup",
   "customizations": {
     "vscode": {
       "extensions": [
@@ -44,8 +45,7 @@
             "source.organizeImports.ruff": "explicit"
           }
         },
-        "ruff.lineLength": 100,
-        "ruff.lint.args": ["--select", "E,F,I,N,W,UP,B,A,SIM"],
+        "ruff.lineLength": 88,
         "plantuml.render": "PlantUMLServer",
         "plantuml.server": "https://www.plantuml.com/plantuml"
       }

@@ -56,10 +56,14 @@ def prompt_for_config(config: dict[str, Any]) -> dict[str, Any]:
         )
 
     if config.get("docker") is None:
-        config["docker"] = Confirm.ask("[bold]Include Docker/Compose?[/bold]", default=True)
+        config["docker"] = Confirm.ask(
+            "[bold]Include Docker/Compose?[/bold]", default=True
+        )
 
     if config.get("ci") is None:
-        config["ci"] = Confirm.ask("[bold]Include GitHub Actions CI?[/bold]", default=True)
+        config["ci"] = Confirm.ask(
+            "[bold]Include GitHub Actions CI?[/bold]", default=True
+        )
 
     if config.get("devcontainer") is None:
         config["devcontainer"] = Confirm.ask(
