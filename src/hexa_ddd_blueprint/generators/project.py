@@ -227,6 +227,7 @@ def _generate_root_files(root: Path, context: dict[str, Any]) -> None:
         root / ".pre-commit-config.yaml",
         _render("base/pre-commit-config.yaml.j2", context),
     )
+    _write_file(root / "Makefile", _render("base/Makefile.j2", context))
     _write_file(root / ".env", _render("base/env.j2", context))
     _write_file(root / ".env.dev", _render("base/env.dev.j2", context))
 

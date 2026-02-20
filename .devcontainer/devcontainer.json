@@ -9,7 +9,7 @@
       "moby": false
     }
   },
-  "postCreateCommand": "uv sync --all-groups",
+  "postCreateCommand": "make setup",
   "customizations": {
     "vscode": {
       "extensions": [
